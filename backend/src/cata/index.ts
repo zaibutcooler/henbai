@@ -16,6 +16,9 @@ router.get("/", protectRoutes, async (req: Request, res: Response) => {
 router.get("/:id", protectRoutes, async (req: Request, res: Response) => {
   try {
     const item = await Model.findById(req.params.id);
+    if (!item) {
+      return res.status(404).json({ message: "Item not found" });
+    }
     res.status(200).json(item);
   } catch (error) {
     res.status(500).json({ message: "Internal Server Error" });
@@ -53,6 +56,9 @@ router.patch("/:id", protectRoutes, async (req: Request, res: Response) => {
 router.delete("/", protectRoutes, async (req: Request, res: Response) => {
   try {
     const item = await Model.findByIdAndDelete(req.params.id);
+    if (!item) {
+      return res.status(404).json({ message: "Item not found" });
+    }
     res.status(200).json(item);
   } catch (error) {
     res.status(500).json({ message: "Internal Server Error" });
