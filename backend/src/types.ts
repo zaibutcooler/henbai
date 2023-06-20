@@ -1,8 +1,34 @@
 import { Types } from "mongoose";
 
-export interface OrderType {}
+export interface CataType {
+  name: string;
+  big: boolean;
+  enhance: boolean;
+}
 
-export interface ProductType {}
+export interface OrderType {
+  product: Types.ObjectId | ProductType;
+  buyer: Types.ObjectId | ProfileType;
+  country: string;
+  city: string;
+  location: string;
+  contactAddress: string[];
+  count: number;
+  paid: boolean;
+}
+
+export interface ProductType {
+  title: string;
+  seller: Types.ObjectId | ProfileType;
+  type: Types.ObjectId | CataType;
+  reviews: Types.ObjectId[] | ReviewType;
+  description: string;
+  price: number;
+  images: string[];
+  instock: boolean;
+  delay: string;
+  count: number;
+}
 
 export interface SellerType {
   user: Types.ObjectId | UserType;
@@ -24,19 +50,26 @@ export interface SellerType {
 
 export interface ProfileType {
   user: Types.ObjectId | UserType;
+  image: string;
   firstName: string;
   lastName: string;
+  isSeller: boolean;
+  seller: Types.ObjectId | SellerType | null;
   dob: Date;
   country: string;
   city: string;
 }
 
-export interface ReviewType {}
+export interface ReviewType {
+  isProduct: boolean;
+  writer: Types.ObjectId | ProfileType;
+  rating: number;
+  body: string;
+}
 
 export interface UserType {
   email: string;
   password: string;
-  seller: boolean;
   profile: Types.ObjectId | ProfileType;
   created: Date;
 }
