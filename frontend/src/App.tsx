@@ -4,12 +4,8 @@ import IndexPage from "./pages/IndexPage";
 function App() {
   return (
     <>
-      <div>
-        <Navbar />
-      </div>
-      <div>
-        <IndexPage />
-      </div>
+      <Navbar />
+      <IndexPage />
     </>
   );
 }
