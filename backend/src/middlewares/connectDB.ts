@@ -3,9 +3,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const localDB = process.env.LOCAL_DB;
-const atlasDB =
-  "mongodb+srv://zaiyellyintaung:97OO8!3!o@ecom.9rnogqi.mongodb.net/";
-
+const atlasDB = String(process.env.LOCAL_DB);
 const connectDB = async () => {
   try {
     await mongoose.connect(atlasDB);
