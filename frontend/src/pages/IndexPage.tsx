@@ -10,13 +10,13 @@ import ProductListingPage from "./products/ProductListingPage";
 import LoginPage from "./auth/LoginPage";
 import RegisterPage from "./auth/RegisterPage";
 import OrderReceivedPage from "./sellers/OrderReceivedPage";
-import ProfilePage from "./sellers/ProfilePage";
+import ProfilePage from "./main/ProfilePage";
 import CreateSellerProfile from "./auth/CreateSellerProfile";
 
 const IndexPage = () => {
   const isAuthenticated = true;
-  const isSeller = true; // Assuming the user is a seller
-
+  const isSeller = true;
+  
   return (
     <div>
       <Routes>
