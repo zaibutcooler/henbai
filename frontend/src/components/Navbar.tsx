@@ -1,78 +1,111 @@
+// import { Link } from "react-router-dom";
 import { useState } from "react";
-import {
-  HiOutlineBars3,
-  HiMagnifyingGlass,
-  HiOutlineMoon,
-  HiXMark,
-} from "react-icons/hi2";
+import { BiUser, BiCart, BiCaretDown, BiMenu, BiX } from "react-icons/bi";
+import Searchbar from "./Searchbar";
 
 const Navbar = () => {
-  const [nav, setNav] = useState(false);
-  // const [btn, setBtn] = useState(false);
+  const [menuBar, setMenuBar] = useState(false);
+  const [categoryDropDown, setCategoryDropDown] = useState(false);
 
   return (
-    <div className="max-w-[1640] w-[100%] flex justify-around items-center fixed">
+    <div className="  flex justify-between items-center p-4">
       {/* Left Side */}
-      <div className="flex justify-between items-center w-32">
-        <HiOutlineBars3
-          onClick={() => setNav(!nav)}
-          className="text-[30px] cursor-pointer lg:text-4xl"
+      <div className="flex items-center">
+        <BiMenu
+          onClick={() => setMenuBar(!menuBar)}
+          size={30}
+          className="lg:hidden"
         />
-        <h1 className="text-lg font-bold pe-2  md:px-2 md:text-2xl cursor-pointer lg:ps-1">
-          E-Com
+        <h1 className="cursor-pointer font-bold ps-4 sm:ps-10 md:ps-12 lg:ps-0 text-2xl">
+          E-com
         </h1>
       </div>
 
-      {/* Search Input */}
-      <div className="flex me-1 bg-[#94BEE9] rounded-full items-center overflow-hidden">
-        <input
-          type="text"
-          placeholder="Search"
-          className=" px-4 bg-transparent focus:outline-none overflow-hidden min-w-[150px] placeholder:text-sm placeholder:text-white p-2 md:w-[350px] md:placeholder:text-[16px] lg:w-[600px]"
-        />
-        <div className="bg-[#D8E7EC] h-[2.5rem] w-10 flex items-center justify-center active:bg-black active:text-white md:w-32 cursor-pointer">
-          <HiMagnifyingGlass className="text-[18px] md:text-2xl" />
-        </div>
-      </div>
-
-      {/* Right Side */}
-      <div className=" w-[6rem] flex flex-col md: me-5 lg:flex-row lg:justify-between lg:w-48">
-        <button className="my-1  bg-[#94BEE9] rounded-lg text-[18px] lg:text-xl lg:px-3 lg:py-1">
-          Log in
-        </button>
-        <button
-          className="my-1 bg-slate-300 rounded-lg text-[18px] lg:text-xl lg:px-3
-        lg:py-1"
-        >
-          Sign Up
-        </button>
-      </div>
-
-      {/* Theme Button */}
-      <button>
-        <HiOutlineMoon className="w-[30px] h-[30px] bg-slate-300 rounded-full flex justify-center items-center p-1 lg:w-[40px] lg:h-[40px] lg:p-2" />
-      </button>
-
+      {/* Mobile */}
       {/* Overlay */}
       <div
         className={
-          nav ? "bg-black/50 fixed w-full h-screen z-10 top-0 left-0" : "hidden"
+          menuBar
+            ? "fixed bg-black/40 top-0 left-0 z-10 w-full min-h-screen"
+            : "hidden"
         }
       ></div>
 
-      {/* Side Navbar */}
+      {/* Mobile Side Menu bar */}
       <div
         className={
-          nav
-            ? "absolute w-[300px] h-[100vh] bg-[#94BEE9] top-0 left-0 z-10 duration-300"
-            : "absolute w-0 h-[100vh] bg-[#94BEE9] top-0 left-0 z-10 duration-300"
+          menuBar
+            ? "fixed top-0 left-0 w-[270px] min-h-screen bg-primary z-10 duration-300 "
+            : "fixed top-0 left-0 w-0 bg-primary z-10 duration-200"
         }
       >
-        <div className="relative w-full">
-          <HiXMark
-            onClick={() => setNav(!nav)}
-            className="absolute text-4xl top-1 right-1 cursor-pointer"
+        <div className="relative">
+          <BiX
+            onClick={() => setMenuBar(!menuBar)}
+            size={40}
+            className=" absolute top-2 right-2"
           />
+        </div>
+
+        {/* Mobile Side Bar Items */}
+        <div className="overflow-hidden">
+          <div className="flex items-center justify-center w-full h-[120px]">
+            <h1 className="w">E-com</h1>
+          </div>
+
+          <div>
+            <h2>Categories</h2>
+            <h2>Deals</h2>
+            <h2>What's New</h2>
+            <h2>Delivery</h2>
+          </div>
+        </div>
+      </div>
+
+      {/* Selection */}
+      <div className="items-center relative hidden lg:flex">
+        <h2
+          onClick={() => setCategoryDropDown(!categoryDropDown)}
+          className="px-2 cursor-pointer flex items-center"
+        >
+          Categories
+          <BiCaretDown />
+          {/* Category Dropdown */}
+          <div
+            className={
+              categoryDropDown
+                ? "absolute w-auto h-auto top-6 left-0 bg-white z-10 rounded-b-md"
+                : "hidden"
+            }
+          >
+            <h3 className="font-bold p-3 text-sm">Electric</h3>
+            <h3 className="font-bold p-3 text-sm">Sneakers</h3>
+            <h3 className="font-bold p-3 text-sm">Toys</h3>
+            <h3 className="font-bold p-3 text-sm">Pharmacy</h3>
+            <h3 className="font-bold p-3 text-sm">Books</h3>
+            <h3 className="font-bold p-3 text-sm">Furniture</h3>
+          </div>
+        </h2>
+        <h2 className="px-2 cursor-pointer hover:text-primary">Deals</h2>
+        <h2 className="px-2 cursor-pointer hover:text-primary">What's New</h2>
+        <h2 className="px-2 cursor-pointer hover:text-primary">Delivery</h2>
+      </div>
+
+      {/* Search Bar */}
+      <Searchbar />
+
+      {/* Right Side */}
+      <div className="flex items-center">
+        {/* Account */}
+        <div className="flex items-center hover:text-primary pe-8 lg:pe-4">
+          <BiUser size={22} />
+          <h2 className="px-1">Account</h2>
+        </div>
+
+        {/* Cart */}
+        <div className="flex items-center  hover:text-primary">
+          <BiCart size={22} />
+          <h2 className="px-1">Cart</h2>
         </div>
       </div>
     </div>
