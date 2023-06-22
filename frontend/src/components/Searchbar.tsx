@@ -6,7 +6,7 @@ const Searchbar = () => {
       <input
         type="text"
         placeholder="Search Products"
-        className="bg-transparent focus:outline-none placeholder:text-[#555555] w-[120px]   md:w-[260px] lg:w-[240px] xl:w-[300px] "
+        className="bg-transparent focus:outline-none placeholder:text-[#555555] w-[120px]   md:w-[260px] lg:w-[240px] xl:w-[290px] "
       />
       <HiOutlineSearch
         size={22}

@@ -3,10 +3,12 @@ import { useState } from "react";
 import { BiUser, BiCart, BiCaretDown, BiMenu, BiX } from "react-icons/bi";
 import { HiOutlineSearch } from "react-icons/hi";
 import Searchbar from "./Searchbar";
+import Category from "./Category";
+import Account from "./Account";
 
 const Navbar = () => {
   const [menuBar, setMenuBar] = useState(false);
-  const [categoryDropDown, setCategoryDropDown] = useState(false);
+  // const [categoryDropDown, setCategoryDropDown] = useState(false);
   const [mobileSearchBar, setMobileSearchbar] = useState(false);
 
   return (
@@ -29,7 +31,6 @@ const Navbar = () => {
         )}
       </div>
 
-      {/* Mobile */}
       {/* Overlay */}
       <div
         className={
@@ -71,33 +72,16 @@ const Navbar = () => {
       </div>
 
       {/* Selection */}
-      <div className="items-center relative hidden lg:flex">
-        <h2
-          onClick={() => setCategoryDropDown(!categoryDropDown)}
-          className="px-2 cursor-pointer flex items-center"
-        >
-          Categories
-          <BiCaretDown />
-          {/* Category Dropdown */}
-          <div
-            className={
-              categoryDropDown
-                ? "absolute w-auto h-auto top-6 left-0 bg-white z-10 rounded-b-md"
-                : "hidden"
-            }
-          >
-            <h3 className="font-bold p-3 text-sm">Electric</h3>
-            <h3 className="font-bold p-3 text-sm">Sneakers</h3>
-            <h3 className="font-bold p-3 text-sm">Toys</h3>
-            <h3 className="font-bold p-3 text-sm">Pharmacy</h3>
-            <h3 className="font-bold p-3 text-sm">Books</h3>
-            <h3 className="font-bold p-3 text-sm">Furniture</h3>
-          </div>
-        </h2>
-        <h2 className="px-2 cursor-pointer hover:text-primary">Deals</h2>
-        <h2 className="px-2 cursor-pointer hover:text-primary">What's New</h2>
-        <h2 className="px-2 cursor-pointer hover:text-primary">Delivery</h2>
-      </div>
+      <ul className="items-center relative hidden lg:flex">
+        <Category />
+        <li className="p-2 cursor-pointer hover:text-primary xl:me-4">Deals</li>
+        <li className="p-2 cursor-pointer hover:text-primary xl:me-4">
+          What's New
+        </li>
+        <li className="p-2 cursor-pointer hover:text-primary xl:me-4">
+          Delivery
+        </li>
+      </ul>
 
       {/* Search Bar */}
       <Searchbar />
@@ -108,7 +92,7 @@ const Navbar = () => {
         <div
           className={
             mobileSearchBar
-              ? "bg-lightblue rounded-full w-full flex items-center p-1 sm:hidden duration-300"
+              ? "bg-lightblue rounded-full w-full flex items-center p-2 sm:hidden duration-300"
               : "bg-transparent flex items-center  sm:hidden duration-300"
           }
         >
@@ -121,7 +105,7 @@ const Navbar = () => {
             placeholder="Search Products"
             className={
               mobileSearchBar
-                ? "bg-transparent focus:outline-none w-[250px]"
+                ? "bg-transparent focus:outline-none w-[240px]"
                 : "hidden"
             }
           />
@@ -132,16 +116,13 @@ const Navbar = () => {
           {mobileSearchBar ? (
             <h1
               onClick={() => setMobileSearchbar(!mobileSearchBar)}
-              className="ps-4 pe-5"
+              className="px-3"
             >
               Back
             </h1>
           ) : (
             <div className="flex">
-              <div className="flex items-center hover:text-primary ps-4 pe-4 lg:pe-4">
-                <BiUser size={25} />
-                <h2 className="px-1 hidden sm:block">Account</h2>
-              </div>
+              <Account />
 
               <div className="flex items-center  hover:text-primary">
                 <BiCart size={25} />
