@@ -1,24 +1,32 @@
 // import { Link } from "react-router-dom";
 import { useState } from "react";
 import { BiUser, BiCart, BiCaretDown, BiMenu, BiX } from "react-icons/bi";
+import { HiOutlineSearch } from "react-icons/hi";
 import Searchbar from "./Searchbar";
 
 const Navbar = () => {
   const [menuBar, setMenuBar] = useState(false);
   const [categoryDropDown, setCategoryDropDown] = useState(false);
+  const [mobileSearchBar, setMobileSearchbar] = useState(false);
 
   return (
     <div className="  flex justify-between items-center p-4">
       {/* Left Side */}
-      <div className="flex items-center">
-        <BiMenu
-          onClick={() => setMenuBar(!menuBar)}
-          size={30}
-          className="lg:hidden"
-        />
-        <h1 className="cursor-pointer font-bold ps-4 sm:ps-10 md:ps-12 lg:ps-0 text-2xl">
-          E-com
-        </h1>
+      <div>
+        {mobileSearchBar ? (
+          <div className="hidden"></div>
+        ) : (
+          <div className="flex items-center">
+            <BiMenu
+              onClick={() => setMenuBar(!menuBar)}
+              size={30}
+              className="lg:hidden"
+            />
+            <h1 className="cursor-pointer font-bold ps-4 sm:ps-10 md:ps-12 lg:ps-0 text-2xl">
+              E-com
+            </h1>
+          </div>
+        )}
       </div>
 
       {/* Mobile */}
@@ -54,7 +62,7 @@ const Navbar = () => {
           </div>
 
           <div>
-            <h2>Categories</h2>
+            <h2 className="">Categories</h2>
             <h2>Deals</h2>
             <h2>What's New</h2>
             <h2>Delivery</h2>
@@ -96,16 +104,51 @@ const Navbar = () => {
 
       {/* Right Side */}
       <div className="flex items-center">
-        {/* Account */}
-        <div className="flex items-center hover:text-primary pe-8 lg:pe-4">
-          <BiUser size={22} />
-          <h2 className="px-1">Account</h2>
+        {/* Mobile Search Bar */}
+        <div
+          className={
+            mobileSearchBar
+              ? "bg-lightblue rounded-full w-full flex items-center p-1 sm:hidden duration-300"
+              : "bg-transparent flex items-center  sm:hidden duration-300"
+          }
+        >
+          <HiOutlineSearch
+            size={25}
+            onClick={() => setMobileSearchbar(!mobileSearchBar)}
+          />
+          <input
+            type="text"
+            placeholder="Search Products"
+            className={
+              mobileSearchBar
+                ? "bg-transparent focus:outline-none w-full"
+                : "hidden"
+            }
+          />
         </div>
 
-        {/* Cart */}
-        <div className="flex items-center  hover:text-primary">
-          <BiCart size={22} />
-          <h2 className="px-1">Cart</h2>
+        {/* Account and Cart and Back Button in Mobile version*/}
+        <div>
+          {mobileSearchBar ? (
+            <h1
+              onClick={() => setMobileSearchbar(!mobileSearchBar)}
+              className="ps-4 pe-5"
+            >
+              Back
+            </h1>
+          ) : (
+            <div className="flex">
+              <div className="flex items-center hover:text-primary ps-4 pe-4 lg:pe-4">
+                <BiUser size={25} />
+                <h2 className="px-1 hidden sm:block">Account</h2>
+              </div>
+
+              <div className="flex items-center  hover:text-primary">
+                <BiCart size={25} />
+                <h2 className="px-1 hidden sm:block">Cart</h2>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
