@@ -121,7 +121,7 @@ const Navbar = () => {
             placeholder="Search Products"
             className={
               mobileSearchBar
-                ? "bg-transparent focus:outline-none w-full"
+                ? "bg-transparent focus:outline-none w-[250px]"
                 : "hidden"
             }
           />
