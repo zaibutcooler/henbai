@@ -2,7 +2,7 @@ import { HiOutlineSearch } from "react-icons/hi";
 
 const Searchbar = () => {
   return (
-    <div className="items-center hidden p-2 rounded-full bg-primary sm:flex focus-within:bg-lightblue">
+    <div className="items-center hidden p-2 rounded-full bg-white/30 backdrop-blur-md sm:flex focus-within:bg-lightblue border-primary border-2">
       <input
         type="text"
         placeholder="Search Products"

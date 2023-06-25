@@ -1,6 +1,6 @@
 // import { Link } from "react-router-dom";
-import { useState } from "react";
-import { BiUser, BiCart, BiCaretDown, BiMenu, BiX } from "react-icons/bi";
+import { useState, useEffect } from "react";
+import { BiCart, BiMenu, BiX } from "react-icons/bi";
 import { HiOutlineSearch } from "react-icons/hi";
 import Searchbar from "./Searchbar";
 import Category from "./Category";
@@ -8,11 +8,21 @@ import Account from "./Account";
 
 const Navbar = () => {
   const [menuBar, setMenuBar] = useState(false);
-  // const [categoryDropDown, setCategoryDropDown] = useState(false);
   const [mobileSearchBar, setMobileSearchbar] = useState(false);
 
+  useEffect(() => {
+    if (menuBar) {
+      document.body.classList.add("no-scroll");
+    } else {
+      document.body.classList.remove("no-scroll");
+    }
+
+    return () => {
+      document.body.classList.remove("no-scroll");
+    };
+  }, [menuBar]);
   return (
-    <div className="  flex justify-between items-center p-4">
+    <div className="fixed w-full bg-white lg:hover:bg-white flex justify-between items-center p-4 lg:bg-white/30 backdrop-blur-md z-[99999]">
       {/* Left Side */}
       <div>
         {mobileSearchBar ? (
@@ -22,7 +32,7 @@ const Navbar = () => {
             <BiMenu
               onClick={() => setMenuBar(!menuBar)}
               size={30}
-              className="lg:hidden"
+              className="lg:hidden no-scroll"
             />
             <h1 className="cursor-pointer font-bold ps-4 sm:ps-10 md:ps-12 lg:ps-0 text-2xl">
               E-com
@@ -44,8 +54,8 @@ const Navbar = () => {
       <div
         className={
           menuBar
-            ? "fixed top-0 left-0 w-[270px] min-h-screen bg-primary z-10 duration-300 "
-            : "fixed top-0 left-0 w-0 bg-primary z-10 duration-200"
+            ? "fixed top-0 left-0 w-[270px] min-h-screen bg-primary z-[999] duration-300 "
+            : "fixed top-0 left-0 w-0 bg-primary z-[999] duration-200"
         }
       >
         <div className="relative">
@@ -74,11 +84,13 @@ const Navbar = () => {
       {/* Selection */}
       <ul className="items-center relative hidden lg:flex">
         <Category />
-        <li className="p-2 cursor-pointer hover:text-primary xl:me-4">Deals</li>
-        <li className="p-2 cursor-pointer hover:text-primary xl:me-4">
+        <li className="p-2 cursor-pointer xl:hover:text-primary xl:me-4">
+          Deals
+        </li>
+        <li className="p-2 cursor-pointer xl:hover:text-primary xl:me-4">
           What's New
         </li>
-        <li className="p-2 cursor-pointer hover:text-primary xl:me-4">
+        <li className="p-2 cursor-pointer xl:hover:text-primary xl:me-4">
           Delivery
         </li>
       </ul>
@@ -124,7 +136,7 @@ const Navbar = () => {
             <div className="flex">
               <Account />
 
-              <div className="flex items-center  hover:text-primary">
+              <div className="flex items-center  xl:hover:text-primary cursor-pointer">
                 <BiCart size={25} />
                 <h2 className="px-1 hidden sm:block">Cart</h2>
               </div>
