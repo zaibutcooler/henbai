@@ -31,8 +31,8 @@ function Account() {
         ref={accountRef}
         className={
           isOpen
-            ? "flex items-center hover:text-primary text-primary ps-4 pe-4 lg:pe-4 cursor-pointer"
-            : "flex items-center hover:text-primary text-black ps-4 pe-4 lg:pe-4 cursor-pointer"
+            ? "flex items-center lg:hover:text-primary text-primary ps-4 pe-4 lg:pe-4 cursor-pointer"
+            : "flex items-center lg:hover:text-primary text-black ps-4 pe-4 lg:pe-4 cursor-pointer"
         }
       >
         <BiUser size={25} />
