@@ -1,5 +1,6 @@
 import HomeImg from "./../../assets/Images/HomeImg.png";
 import Navbar from "../../components/Navbar";
+import GenreCards from "./home/GenreCards";
 import { MdOutlineHighQuality } from "react-icons/md";
 import { GiLaurels } from "react-icons/gi";
 
@@ -7,10 +8,10 @@ const HomePage = () => {
   return (
     <div>
       <Navbar />
-      <div className="w-full sm:h-[90vh] md:h-[80vh] lg:h-[100vh] md:bg-gradient-to-l md:from-primary md:to-bgColor xl:hover:bg-gradient-to-r xl:hover:from-primary xl:hover:to-bgColor">
+      <div className="w-auto h-auto md:bg-gradient-to-l md:from-primary md:to-bgColor xl:hover:bg-gradient-to-r xl:hover:from-primary xl:hover:to-bgColor">
         <div className=" w-full md:flex h-full  lg:pt-20">
           {/* Home Content */}
-          <div className=" top-0 left-0    w-full h-full lg:w-1/2 pt-12">
+          <div className=" top-0 left-0   w-full h-full lg:w-1/2 pt-12">
             {/* Headline */}
             <div className="p-10 pt-14 pl-4 md:pl-10 lg:pt-0">
               <h1 className="font-semibold text-6xl leading-tight lg:leading-none lg:text-4xl md:text-center">
@@ -51,14 +52,15 @@ const HomePage = () => {
           </div>
 
           {/* Home Img */}
-          <div className="w-1/2  p-10  h-full hidden lg:block">
+          <div className="w-1/2  p-10 hidden lg:block">
             <img
               src={HomeImg}
-              className="w-full h-full object-cover object-center"
+              className="w-auto h-auto object-cover object-center"
             />
           </div>
         </div>
       </div>
+      <GenreCards />
     </div>
   );
 };
