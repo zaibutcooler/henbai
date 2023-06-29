@@ -4,14 +4,20 @@ import protectRoutes from "../middlewares/protectRoutes";
 
 const router = Router();
 
-router.get("/", protectRoutes, getAll);
+router.get("/", getAll);
 
-router.get("/:id", protectRoutes, getOne);
+router.get("/:id", getOne);
 
 router.post("/", protectRoutes, createOne);
 
 router.patch("/:id", protectRoutes, updateOne);
 
 router.delete("/", protectRoutes, deleteOne);
+
+router.get("/limit/:count", () => {});
+
+router.get("/limit/trending", () => {});
+
+router.get("/limit/:cata", () => {});
 
 export default router;
