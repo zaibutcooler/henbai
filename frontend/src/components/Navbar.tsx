@@ -22,7 +22,7 @@ const Navbar = () => {
     };
   }, [menuBar]);
   return (
-    <div className="fixed w-full bg-white lg:hover:bg-white flex justify-between items-center p-4 lg:bg-white/30 backdrop-blur-md z-[99999]">
+    <div className="fixed w-full bg-white lg:hover:bg-white flex justify-between items-center p-4 lg:bg-white/70 backdrop-blur-md z-[99999]">
       {/* Left Side */}
       <div>
         {mobileSearchBar ? (

@@ -1,8 +1,9 @@
 import HomeImg from "./../../assets/Images/HomeImg.png";
 import Navbar from "../../components/Navbar";
-import GenreCards from "./home/GenreCards";
+import GenreCards from "./home/genrecards/GenreCards";
 import { MdOutlineHighQuality } from "react-icons/md";
 import { GiLaurels } from "react-icons/gi";
+import ProductContainer from "./home/products/ProductContainer";
 
 const HomePage = () => {
   return (
@@ -52,7 +53,7 @@ const HomePage = () => {
           </div>
 
           {/* Home Img */}
-          <div className="w-1/2  p-10 hidden lg:block">
+          <div className="w-1/2  p-10 hidden lg:flex lg:justify-center lg:items-start lg:pt-0">
             <img
               src={HomeImg}
               className="w-auto h-auto object-cover object-center"
@@ -61,6 +62,7 @@ const HomePage = () => {
         </div>
       </div>
       <GenreCards />
+      <ProductContainer />
     </div>
   );
 };

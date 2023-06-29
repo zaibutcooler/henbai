@@ -1,6 +1,6 @@
 const Cardscomponents = () => {
   return (
-    <div className="relative h-[230px] w-[230px] lg:w-[180px]  rounded-3xl overflow-hidden">
+    <div className="relative w-[180px] h-[230px] sm:w-[230px] lg:w-[180px]  rounded-3xl overflow-hidden">
       <img
         src="https://i.pinimg.com/564x/ed/ce/ab/edceabf57a235f4abd8f75ebfb14690c.jpg"
         className="w-full h-full object-cover object-center transform transition lg:hover:scale-[1.3]"
