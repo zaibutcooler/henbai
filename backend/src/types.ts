@@ -6,17 +6,6 @@ export interface CataType {
   enhance: boolean;
 }
 
-export interface ProfileType {
-  user: Types.ObjectId | UserType;
-  image: string;
-  firstName: string;
-  lastName: string;
-  isSeller: boolean;
-  seller: Types.ObjectId | SellerType | null;
-  dob: Date;
-  country: string;
-  city: string;
-}
 export interface OrderType {
   product: Types.ObjectId | ProductType;
   buyer: Types.ObjectId | ProfileType;
@@ -27,12 +16,7 @@ export interface OrderType {
   count: number;
   paid: boolean;
 }
-export interface ReviewType {
-  isProduct: boolean;
-  writer: Types.ObjectId | ProfileType;
-  rating: number;
-  body: string;
-}
+
 export interface ProductType {
   title: string;
   seller: Types.ObjectId | ProfileType;
@@ -75,6 +59,14 @@ export interface ProfileType {
   country: string;
   city: string;
 }
+
+export interface ReviewType {
+  isProduct: boolean;
+  writer: Types.ObjectId | ProfileType;
+  rating: number;
+  body: string;
+}
+
 export interface UserType {
   email: string;
   password: string;
