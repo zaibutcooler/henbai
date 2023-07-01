@@ -105,3 +105,24 @@ export const deleteOne = async (req: Request, res: Response) => {
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
+
+export const limitCount = async (req: Request, res: Response) => {
+  try {
+  } catch (error) {
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
+export const limitTrending = async (req: Request, res: Response) => {
+  try {
+  } catch (error) {
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
+export const limitCata = async (req: Request, res: Response) => {
+  try {
+  } catch (error) {
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};

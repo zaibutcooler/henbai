@@ -1,5 +1,6 @@
 import { Response, Request } from "express";
 import Model from "./Profile";
+import User from "../auth/User";
 
 export const getAll = async (req: Request, res: Response) => {
   try {
@@ -26,6 +27,14 @@ export const createOne = async (req: Request, res: Response) => {
   try {
     const { user, photo, firstName, lastName, isSeller, dob, country, city } =
       req.body;
+    const userExist = await User.findById(user | user._id);
+
+    if (!userExist) {
+      return res.status(404).json({ message: "Invalid User." });
+    }
+    if (userExist.profile) {
+      return res.status(404).json({ message: "You already have your profile" });
+    }
     const item = new Model({
       user,
       photo,
@@ -37,6 +46,13 @@ export const createOne = async (req: Request, res: Response) => {
       city,
     });
     await item.save();
+    const updateID = item._id;
+    const finishedUpdate = await User.findByIdAndUpdate(
+      user._id | user,
+      { profile: updateID },
+      { new: true }
+    );
+
     res.status(200).json(item);
   } catch (error) {
     res.status(500).json({ message: "Internal Server Error" });
