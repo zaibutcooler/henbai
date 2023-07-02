@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { BiCart, BiMenu, BiX } from "react-icons/bi";
 import { HiOutlineSearch } from "react-icons/hi";
 import Searchbar from "./Searchbar";
+import { NavLink } from "react-router-dom";
 import Category from "./Category";
 import Account from "./Account";
 
@@ -47,8 +48,7 @@ const Navbar = () => {
           menuBar
             ? "fixed bg-black/40 top-0 left-0 z-10 w-full min-h-screen"
             : "hidden"
-        }
-      ></div>
+        }></div>
 
       {/* Mobile Side Menu bar */}
       <div
@@ -56,8 +56,7 @@ const Navbar = () => {
           menuBar
             ? "fixed top-0 left-0 w-[270px] min-h-screen bg-primary z-[999] duration-300 "
             : "fixed top-0 left-0 w-0 bg-primary z-[999] duration-200"
-        }
-      >
+        }>
         <div className="relative">
           <BiX
             onClick={() => setMenuBar(!menuBar)}
@@ -106,8 +105,7 @@ const Navbar = () => {
             mobileSearchBar
               ? "bg-lightblue rounded-full w-full flex items-center p-2 sm:hidden duration-300"
               : "bg-transparent flex items-center  sm:hidden duration-300"
-          }
-        >
+          }>
           <HiOutlineSearch
             size={25}
             onClick={() => setMobileSearchbar(!mobileSearchBar)}
@@ -128,8 +126,7 @@ const Navbar = () => {
           {mobileSearchBar ? (
             <h1
               onClick={() => setMobileSearchbar(!mobileSearchBar)}
-              className="px-3"
-            >
+              className="px-3">
               Back
             </h1>
           ) : (

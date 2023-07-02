@@ -31,7 +31,7 @@ export interface ProductType {
 }
 
 export interface SellerType {
-  user: Types.ObjectId | UserType;
+  user: Types.ObjectId | UserType; // no need
   description: string;
   contactInfo: {
     phone: string;
@@ -43,18 +43,18 @@ export interface SellerType {
     twitter?: string;
     instagram?: string;
   };
-  products: Types.ObjectId[] | ProductType[];
-  orders: Types.ObjectId[] | OrderType[];
-  profileReviews: Types.ObjectId[] | ReviewType[];
+  products: Types.ObjectId[] | ProductType[]; // no need
+  orders: Types.ObjectId[] | OrderType[]; // no need
+  profileReviews: Types.ObjectId[] | ReviewType[]; // no need
 }
 
 export interface ProfileType {
-  user: Types.ObjectId | UserType;
+  user: Types.ObjectId | UserType; //no need
   image: string;
   firstName: string;
   lastName: string;
-  isSeller: boolean;
-  seller: Types.ObjectId | SellerType | null;
+  isSeller: boolean; // no need
+  seller: Types.ObjectId | SellerType | null; // no need
   dob: Date;
   country: string;
   city: string;

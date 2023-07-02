@@ -1,5 +1,6 @@
 import { useRef, useState, useEffect } from "react";
 import { BiUser } from "react-icons/bi";
+import { NavLink } from "react-router-dom";
 
 function Account() {
   const [isOpen, setisOpen] = useState(false);
@@ -33,25 +34,27 @@ function Account() {
           isOpen
             ? "flex items-center lg:hover:text-primary text-primary ps-4 pe-4 lg:pe-4 cursor-pointer"
             : "flex items-center lg:hover:text-primary text-black ps-4 pe-4 lg:pe-4 cursor-pointer"
-        }
-      >
+        }>
         <BiUser size={25} />
         <h2 className="px-1 hidden sm:block">Account</h2>
       </div>
       {isOpen && (
         <div
           ref={itemsRef}
-          className="absolute top-6 left-[-20px] sm:left-3 bg-white rounded-xl"
-        >
+          className="absolute top-6 left-[-20px] sm:left-3 bg-white rounded-xl">
           <div className="p-3 place-items-center">
-            <h2 className="p-2 bg-primary  rounded-lg xl:hover:bg-primary/50 cursor-pointer">
+            <NavLink
+              to="/register"
+              className="p-2 bg-primary  rounded-lg xl:hover:bg-primary/50 cursor-pointer">
               Register
-            </h2>
+            </NavLink>
           </div>
           <div className=" p-3 pt-0 place-items-center">
-            <h2 className="p-2 bg-secondary text-center xl:hover:bg-primary/50 rounded-lg cursor-pointer">
+            <NavLink
+              to="/login"
+              className="p-2 bg-secondary text-center xl:hover:bg-primary/50 rounded-lg cursor-pointer">
               Sign In
-            </h2>
+            </NavLink>
           </div>
         </div>
       )}

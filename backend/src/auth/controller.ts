@@ -3,6 +3,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { Request, Response } from "express";
 import User from "./User";
+import Profile from "../profile/Profile";
 
 import dotenv from "dotenv";
 dotenv.config();
@@ -23,7 +24,14 @@ export const login = async (req: Request, res: Response) => {
     const token = jwt.sign({ userId: validUser._id }, secretKey, {
       expiresIn: "1hr",
     });
-    res.status(200).json(token);
+
+    const profileID = validUser.profile;
+    const pf = await Profile.findById(profileID);
+    const isSeller = pf?.isSeller;
+
+    const auth = { profileID, isSeller, token };
+
+    res.status(200).json({ auth, profile: pf });
   } catch (error) {
     res.status(500).json({ message: "Internal Server Error" });
   }

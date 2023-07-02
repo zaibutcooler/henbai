@@ -25,9 +25,9 @@ export const getOne = async (req: Request, res: Response) => {
 
 export const createOne = async (req: Request, res: Response) => {
   try {
-    const { user, photo, firstName, lastName, isSeller, dob, country, city } =
+    const { user, firstName, lastName, isSeller, dob, country, city } =
       req.body;
-    const userExist = await User.findById(user | user._id);
+    const userExist = await User.findById(user);
 
     if (!userExist) {
       return res.status(404).json({ message: "Invalid User." });
@@ -35,9 +35,9 @@ export const createOne = async (req: Request, res: Response) => {
     if (userExist.profile) {
       return res.status(404).json({ message: "You already have your profile" });
     }
+    // error starts here
     const item = new Model({
       user,
-      photo,
       firstName,
       lastName,
       isSeller,
@@ -46,9 +46,11 @@ export const createOne = async (req: Request, res: Response) => {
       city,
     });
     await item.save();
+    console.log("passed data");
+
     const updateID = item._id;
     const finishedUpdate = await User.findByIdAndUpdate(
-      user._id | user,
+      user,
       { profile: updateID },
       { new: true }
     );

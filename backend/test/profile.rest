@@ -1,0 +1,28 @@
+### Register User ###
+
+POST  http://localhost:5000/profile/
+Content-Type: application/json
+
+{
+  "user": "64a162cf6596641c0b5596a8",
+  "firstName": "Ishida",
+  "lastName": "Doe",
+  "isSeller": false,
+  "dob": "1990-01-01",
+  "country": "United States",
+  "city": "New York"
+}
+
+###
+
+### Login User ###
+
+POST http://localhost:5000/auth/login
+Content-Type: application/json
+
+{
+  "email": "ishida@example.com",
+  "password": "soulreaper"
+}
+
+###

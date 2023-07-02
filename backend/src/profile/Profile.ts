@@ -3,7 +3,7 @@ import { ProfileType } from "../types";
 
 const profileSchema = new Schema<ProfileType>({
   user: { type: Types.ObjectId, ref: "User", required: true },
-  image: { type: String, required: true },
+  image: { type: String },
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
   isSeller: { type: Boolean, required: true },

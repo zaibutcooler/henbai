@@ -8,7 +8,7 @@ router.get("/", getAll);
 
 router.get("/:id", getOne);
 
-router.post("/", protectRoutes, createOne);
+router.post("/", createOne);
 
 router.patch("/:id", protectRoutes, updateOne);
 
