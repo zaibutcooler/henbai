@@ -30,8 +30,11 @@ const userSlice = createSlice({
       state.isSeller = false;
       state.token = "";
     },
+    setProfileID: (state, action: PayloadAction<string>) => {
+      state.profileID = action.payload;
+    },
   },
 });
 
-export const { setUser, clearUser } = userSlice.actions;
+export const { setUser, clearUser, setProfileID } = userSlice.actions;
 export default userSlice.reducer;

@@ -6,7 +6,7 @@ const profileSchema = new Schema<ProfileType>({
   image: { type: String },
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
-  isSeller: { type: Boolean, required: true },
+  isSeller: { type: Boolean },
   seller: { type: Types.ObjectId, ref: "Seller" },
   dob: { type: Date, required: true },
   country: { type: String, required: true },

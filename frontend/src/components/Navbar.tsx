@@ -2,10 +2,10 @@
 import { useState, useEffect } from "react";
 import { BiCart, BiMenu, BiX } from "react-icons/bi";
 import { HiOutlineSearch } from "react-icons/hi";
-import Searchbar from "./Searchbar";
+import Searchbar from "./header/Searchbar";
 import { NavLink } from "react-router-dom";
-import Category from "./Category";
-import Account from "./Account";
+import Category from "./header/Category";
+import Account from "./header/Account";
 
 const Navbar = () => {
   const [menuBar, setMenuBar] = useState(false);

@@ -11,12 +11,13 @@ import LoginPage from "./auth/LoginPage";
 import RegisterPage from "./auth/RegisterPage";
 import OrderReceivedPage from "./sellers/OrderReceivedPage";
 import ProfilePage from "./main/ProfilePage";
-import CreateSellerProfile from "./auth/CreateSellerProfile";
+import CreateSellerProfilePage from "./auth/CreateSellerProfilePage";
+import CreateProfilePage from "./auth/CreateProfilePage";
 
 const IndexPage = () => {
   const isAuthenticated = true;
   const isSeller = true;
-  
+
   return (
     <div>
       <Routes>
@@ -58,7 +59,6 @@ const IndexPage = () => {
 
         <Route path="/products/detail" element={<ProductDetailPage />} />
         <Route path="/products/all" element={<ProductListingPage />} />
-
         <Route
           path="/seller/received-orders"
           element={
@@ -76,9 +76,10 @@ const IndexPage = () => {
 
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
+        <Route path="/profile/create" element={<CreateProfilePage />} />
         <Route
-          path="/create-seller-profile"
-          element={<CreateSellerProfile />}
+          path="/profile/create/seller"
+          element={<CreateSellerProfilePage />}
         />
       </Routes>
     </div>

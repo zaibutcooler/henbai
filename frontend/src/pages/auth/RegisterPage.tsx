@@ -1,105 +1,117 @@
-import photo from "../../assets/pic1.jpg";
-import React, { useState, useEffect } from "react";
-import Navbar from "../../components/Navbar";
+import { useState, FormEvent } from "react";
+
+import { Link } from "react-router-dom";
+
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setUserID } from "../../store/profileSlice";
 
 const RegisterPage = () => {
-  const [isMobile, setIsMobile] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [password2, setPassword2] = useState("");
 
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
+  const navigator = useNavigate();
+  const dispatch = useDispatch();
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    try {
+      const res = await axios.post("http://localhost:5000/auth/register", {
+        email,
+        password,
+      });
 
-    window.addEventListener("resize", handleResize);
-    handleResize();
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+      dispatch(setUserID(res.data._id));
+
+      console.log("Sucess");
+      navigator("/profile/create");
+    } catch (err) {
+      console.log("Eroor =>", err);
+    }
+    const res = await axios.post("http://localhost:5000/auth/login", {
+      email,
+      password,
+    });
+  };
 
   return (
-    <div className="app">
-      <Navbar />
-      <div className="container mx-auto py-10">
-        <div className="w-10/12 lg:w-10/12 border-solid border-2 border-gray-600  bg-white rounded-xl mx-auto shadow-lg overflow-hidden flex flex-col lg:flex-row">
-          <div
-            className={`w-full lg:w-1/2 flex flex-col items-center justify-center p-15 bg-no-repeat bg-cover bg-center ${
-              window.innerWidth <= 768 ? "hidden" : "" // Hide on mobile devices (width <= 768px)
-            }`}
-            style={{ backgroundImage: `url(${photo})` }}>
-            <h1 className="text-white text-3xl mb-3">Welcome</h1>
-            <div>
-              <p className="text-white">
-                {" "}
-                Ullam necessitatibus cumque voluptatem odio! Praesentium,
-                ducimus est nihil, nostrum quo unde cum illum adipisci nemo
-                recusandae quibusdam optio odit cupiditate ea?
-              </p>
-            </div>
-          </div>
-          <div className="w-full lg:w-1/2 py-16 px-12">
-            <h2 className="text-3xl mb-4">Register</h2>
-            <p className="mb-4">Create your account!</p>
+    <div className="app min-h-screen bg-gray-200 mt-10">
+      <div className="container mx-auto py-10 px-5 max-w-6xl">
+        <div className="max-w-sm mx-auto bg-white rounded-xl shadow-lg overflow-hidden p-6 relative">
+          <Link to="/" className="absolute top-2 left-2">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6 m-4 text-gray-500 hover:text-gray-700 transition duration-300"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor">
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M10 19l-7-7m0 0l7-7m-7 7h18"
+              />
+            </svg>
+          </Link>
+          <h1 className="text-4xl my-10 text-center">Happy Shopping!! </h1>
 
-            <form>
-              <div className="grid grid-cols-2 gap-5">
-                <input
-                  type="text"
-                  placeholder="First Name"
-                  className="border border-gray-400 py-1 px-2 rounded-lg"
-                />
-                <input
-                  type="text"
-                  placeholder="Second Name"
-                  className="border border-gray-400 py-1 px-2 rounded-lg"
-                />
-              </div>
-              <div className="mt-5">
-                <input
-                  type="text"
-                  placeholder="Email"
-                  className="border border-gray-400 py-1 px-2 rounded-lg w-full"
-                />
-              </div>
-              <div className="mt-5">
-                <input
-                  type="password"
-                  placeholder="Password"
-                  className="border border-gray-400 py-1 px-2 rounded-lg w-full"
-                />
-              </div>
-              <div className="mt-5">
-                <input
-                  type="password"
-                  placeholder="Confirm Your Password"
-                  className="border border-gray-400 py-1 px-2 rounded-lg w-full"
-                />
-              </div>
-              <div className="mt-5">
-                <input type="checkbox" className="border border-gray-400" />
-                <span>
-                  I accept the{" "}
-                  <a href="#" className="text-blue-300 font-semibold">
-                    {" "}
-                    Terms of Use{" "}
-                  </a>
-                  &
-                  <a href="#" className="text-blue-300 font-semibold">
-                    {" "}
-                    Privacy Policy
-                  </a>
-                </span>
-                <div className="mt-5">
-                  <button className="w-full bg-blue-300 py-3 text-center text-white  hover:bg-blue-600 active:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 rounded-lg ">
-                    Register
-                  </button>
-                </div>
-              </div>
-              <a className=" flex justify-center mt-5 underline underline-offset-1">
-                Already have an account? <a className="text-sky-500"> Login </a>{" "}
-              </a>
-            </form>
-          </div>
+          <form onSubmit={handleSubmit} className="px-4">
+            <div className="mb-6">
+              <input
+                type="text"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="border border-gray-400 py-2 px-2 rounded-lg w-full"
+              />
+            </div>
+            <div className="mb-6">
+              <input
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="border border-gray-400 py-2 px-2 rounded-lg w-full"
+              />
+            </div>
+            <div className="mb-6">
+              <input
+                type="password"
+                placeholder="Confirm Password"
+                value={password2}
+                onChange={(e) => setPassword2(e.target.value)}
+                className="border border-gray-400 py-2 px-2 rounded-lg w-full"
+              />
+            </div>
+            <div className="mb-4"></div>
+            <div className="mb-4 text-sm">
+              <input type="checkbox" className="border border-gray-400 mr-2" />
+              <span>
+                I accept the{" "}
+                <a href="#" className="text-blue-300">
+                  Terms of Use
+                </a>{" "}
+                &{" "}
+                <a href="#" className="text-blue-300">
+                  Privacy Policy
+                </a>
+              </span>
+            </div>
+            <div className="mb-4">
+              <button
+                type="submit"
+                className="w-full bg-blue-300 py-2 text-center text-white hover:bg-blue-600 active:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 rounded-lg">
+                Register
+              </button>
+            </div>
+            <p className="text-center mb-4">
+              Already have an account?{" "}
+              <Link to="/login" className="text-blue-500">
+                Login
+              </Link>
+            </p>
+          </form>
         </div>
       </div>
     </div>

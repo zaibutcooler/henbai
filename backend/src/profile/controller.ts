@@ -63,11 +63,30 @@ export const createOne = async (req: Request, res: Response) => {
 
 export const updateOne = async (req: Request, res: Response) => {
   try {
-    const { user, photo, firstName, lastName, isSeller, dob, country, city } =
-      req.body;
+    const {
+      user,
+      photo,
+      firstName,
+      lastName,
+      isSeller,
+      seller,
+      dob,
+      country,
+      city,
+    } = req.body;
     const item = await Model.findByIdAndUpdate(
       req.params.id,
-      { user, photo, firstName, lastName, isSeller, dob, country, city },
+      {
+        user,
+        photo,
+        firstName,
+        lastName,
+        isSeller,
+        seller,
+        dob,
+        country,
+        city,
+      },
       { new: true }
     );
     if (!item) {

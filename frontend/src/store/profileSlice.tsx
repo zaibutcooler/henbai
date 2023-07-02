@@ -39,9 +39,12 @@ export const profileSlice = createSlice({
       state.country = initialState.country;
       state.city = initialState.city;
     },
+    setUserID: (state, action: PayloadAction<string>) => {
+      state.user = action.payload;
+    },
   },
 });
 
-export const { setProfile, clearProfile } = profileSlice.actions;
+export const { setProfile, clearProfile, setUserID } = profileSlice.actions;
 
 export default profileSlice.reducer;
