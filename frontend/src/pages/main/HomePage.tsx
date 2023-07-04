@@ -1,9 +1,9 @@
 import HomeImg from "./../../assets/Images/HomeImg.png";
 import Navbar from "../../components/Navbar";
-import GenreCards from "./home/genrecards/GenreCards";
 import { MdOutlineHighQuality } from "react-icons/md";
 import { GiLaurels } from "react-icons/gi";
-import ProductContainer from "./home/products/ProductContainer";
+import ProductContainer from "../../components/home/products/ProductContainer";
+import GenreCards from "../../components/home/genrecards/GenreCards";
 
 const HomePage = () => {
   return (
