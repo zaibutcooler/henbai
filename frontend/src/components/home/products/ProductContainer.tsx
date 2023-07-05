@@ -71,15 +71,17 @@ const ProductContainer = () => {
           customRightArrow={<CustomRightArrow onClick={() => {}} />}
           customLeftArrow={<CustomLeftArrow onClick={() => {}} />}
           showDots={true}
+          draggable={false}
         >
           {/* Products */}
           {productData.map((card) => {
             const [wish, setWish] = useState(false);
+
             return (
-              <div className="w-[270px] transform transition duration-300 lg:hover:shadow-primary shadow-lg  lg:hover:-translate-y-2 border-2 border-primary rounded-b-2xl overflow-hidden relative">
+              <div className="w-[270px] transform transition duration-300 lg:hover:shadow-primary shadow-lg  lg:hover:-translate-y-2 border-2 border-primary rounded-3xl overflow-hidden relative">
                 {/* Wish icon */}
                 <div
-                  className="absolute flex justify-center items-center w-12 h-12 rounded-full bg-white top-3 right-3 border-2 border-primary"
+                  className="absolute flex justify-center items-center w-12 h-12 rounded-full bg-white top-2 right-2 border-2 border-primary"
                   onClick={() => setWish(!wish)}
                 >
                   {wish ? (
@@ -90,26 +92,28 @@ const ProductContainer = () => {
                 </div>
 
                 {/* Product content */}
-                <img
-                  className="w-full object-fill object-center h-[230px]"
-                  src={card.imageurl}
-                  alt={card.name}
-                />
-                {/* Product Name */}
-                <h2 className="text-center pt-2 text-lg">{card.name}</h2>
+                <div onClick={() => changeContent(card)}>
+                  <img
+                    className="w-full object-fill object-center h-[230px]"
+                    src={card.imageurl}
+                    alt={card.name}
+                  />
+                  {/* Product Name */}
+                  <h2 className="text-center pt-2 text-lg">{card.name}</h2>
 
-                {/* Product Price */}
-                <h1 className="pt-2 text-[#ff7215] text-center text-xl">
-                  {card.price}
-                </h1>
+                  {/* Product Price */}
+                  <h1 className="pt-2 text-[#ff7215] text-center text-xl">
+                    {card.price}
+                  </h1>
 
-                {/* Product Description */}
-                <h3 className="p-2 text-[#838282] text-sm">
-                  {card.description}
-                </h3>
+                  {/* Product Description */}
+                  <h3 className="p-2 text-[#838282] text-sm pb-5">
+                    {card.description}
+                  </h3>
+                </div>
 
                 {/* Product Button */}
-                <div className="p-4 grid grid-cols-2 place-items-center">
+                <div className="p-4 pt-0 grid grid-cols-2 place-items-center">
                   <button className="w-[100px] h-10 bg-primary lg:hover:bg-primary/70 rounded-lg">
                     Buy Now
                   </button>
@@ -117,9 +121,6 @@ const ProductContainer = () => {
                     Add to Cart
                   </button>
                 </div>
-                <p className="text-center" onClick={() => changeContent(card)}>
-                  more detail
-                </p>
               </div>
             );
           })}
@@ -136,27 +137,31 @@ const ProductContainer = () => {
             return (
               <>
                 <div
-                  className="w-[1020px] h-[500px] bg-white text-3xl"
+                  className="w-[1020px] h-[500px] bg-white text-3xl py-4"
                   onClick={(e) => e.stopPropagation()}
                   key={popup.id}
                 >
-                  <div className="flex justify-end">
-                    <BiX
-                      onClick={changeContent}
-                      className="w-10 h-10 rounded-full border-2 border-primary cursor-pointer"
-                    />
-                  </div>
                   <div className="w-full h-full flex">
-                    <div className="w-[40%] h-full">
+                    <div className="w-[40%] h-full flex justify-center">
                       <img
                         src={popup.imageurl}
                         alt={popup.name}
-                        className="w-60 h-60 object-cover"
+                        className="w-60 h-60  object-center"
                       />
                     </div>
-                    <div className="h-full w-[60%]">
-                      <div>{popup.name}</div>
-                      <div>{popup.detail}</div>
+                    <div className="h-full w-[60%] pr-4">
+                      <div className="flex justify-between items-center">
+                        <div className="text-center font-bold">
+                          {popup.name}
+                        </div>
+                        <BiX
+                          onClick={changeContent}
+                          className="w-10 h-10 rounded-full border-2 border-primary cursor-pointer"
+                        />
+                      </div>
+                      <div className="text-xl p-10 pl-0 pr-5">
+                        {popup.detail}
+                      </div>
                     </div>
                   </div>
                 </div>
