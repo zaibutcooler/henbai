@@ -1,6 +1,7 @@
 "use client"
 
 import { zodResolver } from "@hookform/resolvers/zod"
+import axios from "axios"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
 
@@ -34,6 +35,11 @@ const StoreModal = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     console.log(values)
+    try {
+      const response = await axios.post("/api/admin/stores", values)
+
+      console.log("res", response.data)
+    } catch (error) {}
   }
 
   const loading = form.formState.isSubmitting

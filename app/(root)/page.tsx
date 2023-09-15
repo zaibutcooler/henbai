@@ -1,3 +1,9 @@
+import { UserProfile } from "@clerk/nextjs"
+
 export default function IndexPage() {
-  return <main>Index</main>
+  return (
+    <main>
+      <UserProfile />
+    </main>
+  )
 }
