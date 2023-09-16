@@ -1,8 +1,8 @@
 import React, { ReactNode } from "react"
-import { ModalProvider } from "@/providers/modal-provider"
 
 import prismadb from "@/lib/prismadb"
 import AdminNavbar from "@/components/main/admin/AdminNavbar"
+import { ModalProvider } from "@/components/modal-provider"
 
 export default function AdminLayout({ children }: { children: ReactNode }) {
   return (

@@ -33,9 +33,8 @@ const StoreSwitcher = ({ className, items = [] }: StoreSwitcherProps) => {
   const storeModal = useStoreModal()
   const params = useParams()
   const router = useRouter()
-  const it = [{ name: "", id: "" }]
 
-  const formattedItems = it.map((item) => ({
+  const formattedItems = items.map((item) => ({
     label: item.name,
     value: item.id,
   }))

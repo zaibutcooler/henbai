@@ -10,10 +10,8 @@ export default function BillBoardPage() {
   const isOpen = useStoreModal((state) => state.isOpen)
 
   useEffect(() => {
-    if (!isOpen) {
-      onOpen()
-    }
-  }, [isOpen, onOpen])
+    onOpen()
+  }, [])
 
   return (
     <main>
