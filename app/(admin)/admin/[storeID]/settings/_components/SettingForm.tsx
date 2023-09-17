@@ -9,6 +9,8 @@ import { useForm } from "react-hook-form"
 import { toast } from "react-hot-toast"
 import * as z from "zod"
 
+import { useOrigin } from "@/hooks/useOrigin"
+import { ApiCopy } from "@/components/ui/api-copy"
 import { Button } from "@/components/ui/button"
 import {
   Form,
@@ -34,14 +36,14 @@ type FormType = z.infer<typeof formSchema>
 const SettingForm: FC<Props> = ({ initialData }) => {
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
+  const params = useParams()
+  const router = useRouter()
+  const origin = useOrigin()
 
   const form = useForm<FormType>({
     resolver: zodResolver(formSchema),
     defaultValues: initialData,
   })
-
-  const params = useParams()
-  const router = useRouter()
 
   const onSubmit = async (values: FormType) => {
     try {
@@ -121,6 +123,13 @@ const SettingForm: FC<Props> = ({ initialData }) => {
             </Button>
           </form>
         </Form>
+
+        <Separator />
+        <ApiCopy
+          title="PUBLIC_API_URL"
+          variant="public"
+          description={`${origin}/api/admin/${params.storeID}`}
+        />
       </div>
     </>
   )
