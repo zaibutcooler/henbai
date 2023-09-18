@@ -12,9 +12,39 @@ datasource db {
 }
 
 model Store {
-  id     String @id @default(uuid())
-  name   String
-  userId String
-  created DateTime @default(now())
-  updated DateTime @updatedAt
+  id            String @id @default(uuid())
+  name          String
+  userId        String
+  billboards    Billboard[]   @relation("StoreToBillboard")
+  categories    Category[]    @relation("StoreToCategory")
+  created       DateTime      @default(now())
+  updated       DateTime      @updatedAt
+}
+
+model Billboard{
+  id            String @id   @default(uuid())
+  store         Store        @relation("StoreToBillboard", fields: [storeID], references: [id])
+  storeID       String
+  label         String
+  imageUrl      String
+  categories    Category[]
+  created       DateTime     @default(now())
+  updated       DateTime     @updatedAt
+
+  @@index([storeID])
+}
+
+model Category{
+  id            String      @id @default(uuid())
+  store         Store       @relation("StoreToCategory", fields: [storeID], references: [id])
+  storeID       String
+  billboardID   String
+  billboard     Billboard   @relation(fields:[billboardID],references: [id])
+  productID     String
+  // product       Product     @relation("CategoryToProduct")  
+  name          String
+  created       DateTime     @default(now())
+  updated       DateTime     @updatedAt
+  @@index([storeID])
+  @@index([billboardID])
 }

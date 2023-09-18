@@ -40,14 +40,14 @@ const StoreSwitcher = ({ className, items = [] }: StoreSwitcherProps) => {
   }))
 
   const currentStore = formattedItems.find(
-    (item) => item.value === params.storeId
+    (item) => item.value === params.storeID
   )
 
   const [open, setOpen] = React.useState(false)
 
   const onStoreSelect = (store: { value: string; label: string }) => {
     setOpen(false)
-    router.push(`/${store.value}`)
+    router.push(`/admin/${store.value}`)
   }
 
   return (
