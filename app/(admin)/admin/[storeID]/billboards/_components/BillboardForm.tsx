@@ -48,7 +48,7 @@ const BillboardForm: FC<Props> = ({ initialData }) => {
   const action = initialData ? "Save changes" : "Create"
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log(values)
+    console.log('val',values)
   }
 
   const onDelete = async () => {}
