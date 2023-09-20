@@ -39,7 +39,7 @@ const ProductListing = () => {
           />
           <Button
             onClick={() =>
-              router.push(`/admin/${params.storeID}/billboards/new`)
+              router.push(`/admin/${params.storeID}/products/new`)
             }
           >
             <Plus className="mr-2 h-4 w-4" /> Add New

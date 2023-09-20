@@ -38,9 +38,7 @@ const SizeListing = () => {
             description="Manage sizes for your products"
           />
           <Button
-            onClick={() =>
-              router.push(`/admin/${params.storeID}/billboards/new`)
-            }
+            onClick={() => router.push(`/admin/${params.storeID}/sizes/new`)}
           >
             <Plus className="mr-2 h-4 w-4" /> Add New
           </Button>

@@ -1,3 +1,15 @@
-export default function ProductDetailsPage() {
-  return <main>ProductDetails Page</main>
+import ProductForm from "../_components/ProductForm"
+
+export default function ProductDetailPage({
+  params,
+}: {
+  params: { billboardID: string }
+}) {
+  return (
+    <main className="flex-col">
+      <div className="flex-1 space-y-4 p-8 pt-6">
+        <ProductForm initialData={null} />
+      </div>
+    </main>
+  )
 }
