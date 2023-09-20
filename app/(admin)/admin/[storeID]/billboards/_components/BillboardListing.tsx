@@ -4,6 +4,7 @@ import { useState } from "react"
 import { useParams, useRouter } from "next/navigation"
 import { Plus } from "lucide-react"
 
+import { ApiList } from "@/components/ui/api-list"
 import { Button } from "@/components/ui/button"
 import { Heading } from "@/components/ui/heading"
 import { Separator } from "@/components/ui/separator"
@@ -45,6 +46,7 @@ const BillboardListing = () => {
           </Button>
         </div>
         <Separator />
+        <ApiList entityName="billboards" entityIdName="billboardID" />
       </div>
     </>
   )

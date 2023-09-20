@@ -1,10 +1,14 @@
 "use client"
 
 import { FC, useState } from "react"
+import { useParams, useRouter } from "next/navigation"
+import router from "@/prototype/backend/src/auth"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Billboard } from "@prisma/client"
+import axios from "axios"
 import { Trash } from "lucide-react"
 import { useForm } from "react-hook-form"
+import toast from "react-hot-toast"
 import * as z from "zod"
 
 import { Button } from "@/components/ui/button"
@@ -34,6 +38,9 @@ const formSchema = z.object({
 const BillboardForm: FC<Props> = ({ initialData }) => {
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
+  const params = useParams()
+  const router = useRouter()
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: initialData || {
@@ -48,7 +55,26 @@ const BillboardForm: FC<Props> = ({ initialData }) => {
   const action = initialData ? "Save changes" : "Create"
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log('val',values)
+    console.log("val", values)
+
+    try {
+      setLoading(true)
+      if (initialData) {
+        await axios.patch(
+          `/api/admin/${params.storeID}/billboards/${params.billboardID}`,
+          values
+        )
+      } else {
+        await axios.post(`/api/admin/${params.storeID}/billboards/`, values)
+      }
+      router.refresh()
+      router.push(`/admin/${params.storeID}/billboards`)
+      toast.success(toastMessage)
+    } catch (err) {
+      toast.error("Something went wrong")
+    } finally {
+      setLoading(false)
+    }
   }
 
   const onDelete = async () => {}
