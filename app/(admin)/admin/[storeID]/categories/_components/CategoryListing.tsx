@@ -1,7 +1,8 @@
 "use client"
 
-import { useState } from "react"
+import { FC, useState } from "react"
 import { useParams, useRouter } from "next/navigation"
+import { Category } from "@prisma/client"
 import { Plus } from "lucide-react"
 
 import { ApiList } from "@/components/ui/api-list"
@@ -10,13 +11,15 @@ import { Heading } from "@/components/ui/heading"
 import { Separator } from "@/components/ui/separator"
 import AlertModal from "@/components/modals/AlertModal"
 
-const CategoryListing = () => {
+interface Props {
+  data: Category[]
+}
+
+const CategoryListing: FC<Props> = ({ data }) => {
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
 
   const onDelete = async () => {}
-
-  const data = []
 
   const params = useParams()
   const router = useRouter()

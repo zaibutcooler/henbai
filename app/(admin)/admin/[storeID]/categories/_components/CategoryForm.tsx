@@ -4,8 +4,10 @@ import { FC, useState } from "react"
 import { useParams, useRouter } from "next/navigation"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Billboard, Category } from "@prisma/client"
+import axios from "axios"
 import { Trash } from "lucide-react"
 import { useForm } from "react-hook-form"
+import toast from "react-hot-toast"
 import * as z from "zod"
 
 import { Button } from "@/components/ui/button"
@@ -63,6 +65,24 @@ const CategoryForm: FC<Props> = ({ initialData, billboards }) => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     console.log("values", values)
+    try {
+      setLoading(true)
+      if (initialData) {
+        axios.patch(
+          `/api/admin/${params.storeID}/categories/${params.categoryID}`,
+          values
+        )
+      } else {
+        axios.post(`/api/admin/${params.storeID}/categories`, values)
+      }
+      router.refresh()
+      router.push(`/admin/${params.storeID}/categories`)
+      toast.success(toastMessage)
+    } catch (error) {
+      toast.error("Something went wrong")
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (

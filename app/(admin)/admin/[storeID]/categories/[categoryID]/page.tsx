@@ -11,6 +11,7 @@ export default async function CategoryDetailPage({
     where: { storeID: params.storeID },
     orderBy: { created: "desc" },
   })
+
   return (
     <main className="flex-col">
       <div className="flex-1 space-y-4 p-8 pt-6">

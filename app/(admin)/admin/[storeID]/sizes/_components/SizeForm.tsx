@@ -3,8 +3,10 @@
 import { FC, useState } from "react"
 import { useParams, useRouter } from "next/navigation"
 import { zodResolver } from "@hookform/resolvers/zod"
+import axios from "axios"
 import { Trash } from "lucide-react"
 import { useForm } from "react-hook-form"
+import toast from "react-hot-toast"
 import * as z from "zod"
 
 import { Button } from "@/components/ui/button"
@@ -51,7 +53,27 @@ const SizeForm: FC<Props> = ({ initialData }) => {
 
   const onDelete = async () => {}
 
-  const onSubmit = async () => {}
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    console.log("values", values)
+    try {
+      setLoading(true)
+      if (initialData) {
+        axios.patch(
+          `/api/admin/${params.storeID}/sizes/${params.categoryID}`,
+          values
+        )
+      } else {
+        axios.post(`/api/admin/${params.storeID}/sizes`, values)
+      }
+      router.refresh()
+      router.push(`/admin/${params.storeID}/sizes`)
+      toast.success(toastMessage)
+    } catch (error) {
+      toast.error("Something went wrong")
+    } finally {
+      setLoading(false)
+    }
+  }
 
   return (
     <>
