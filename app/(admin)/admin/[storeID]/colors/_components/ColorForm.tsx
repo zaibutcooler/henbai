@@ -2,16 +2,35 @@
 
 import { FC, useState } from "react"
 import { useParams, useRouter } from "next/navigation"
+import { zodResolver } from "@hookform/resolvers/zod"
 import { Trash } from "lucide-react"
+import { useForm } from "react-hook-form"
+import * as z from "zod"
 
 import { Button } from "@/components/ui/button"
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form"
 import { Heading } from "@/components/ui/heading"
+import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
 import AlertModal from "@/components/modals/AlertModal"
 
 interface Props {
   initialData: any | null
 }
+
+const formSchema = z.object({
+  name: z.string().min(1),
+  value: z.string().min(4).max(9).regex(/^#/, {
+    message: "String must be a valid hex code",
+  }),
+})
 
 const ColorForm: FC<Props> = ({ initialData }) => {
   const params = useParams()
@@ -20,12 +39,23 @@ const ColorForm: FC<Props> = ({ initialData }) => {
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
 
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: initialData || {
+      name: "",
+    },
+  })
+
   const title = initialData ? "Edit color" : "Create color"
   const description = initialData ? "Edit a color." : "Add a new color"
   const toastMessage = initialData ? "Color updated." : "Color created."
   const action = initialData ? "Save changes" : "Create"
 
   const onDelete = async () => {}
+
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    console.log("values", values)
+  }
 
   return (
     <>
@@ -51,6 +81,51 @@ const ColorForm: FC<Props> = ({ initialData }) => {
           )}
         </div>
         <Separator />
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)}>
+            <div className="md:grid md:grid-cols-3 gap-8 mb-4">
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Label</FormLabel>
+                    <FormControl>
+                      <Input disabled={loading} placeholder="Name" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="value"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Label</FormLabel>
+                    <FormControl>
+                      <div className="flex items-center gap-x-4">
+                        <Input
+                          disabled={loading}
+                          placeholder="Color value"
+                          {...field}
+                        />
+                        <div
+                          className="border p-4 rounded-full"
+                          style={{ backgroundColor: field.value }}
+                        />
+                      </div>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>{" "}
+            <Button disabled={loading} className="ml-auto" type="submit">
+              {action}
+            </Button>
+          </form>
+        </Form>
       </div>
     </>
   )

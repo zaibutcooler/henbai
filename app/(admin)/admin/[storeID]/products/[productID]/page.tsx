@@ -8,7 +8,12 @@ export default function ProductDetailPage({
   return (
     <main className="flex-col">
       <div className="flex-1 space-y-4 p-8 pt-6">
-        <ProductForm initialData={null} />
+        <ProductForm
+          initialData={null}
+          colors={[]}
+          sizes={[]}
+          categories={[]}
+        />
       </div>
     </main>
   )

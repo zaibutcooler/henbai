@@ -62,7 +62,7 @@ const CategoryForm: FC<Props> = ({ initialData, billboards }) => {
   const onDelete = async () => {}
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log("values")
+    console.log("values", values)
   }
 
   return (
