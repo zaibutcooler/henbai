@@ -2,20 +2,54 @@
 
 import { FC, useState } from "react"
 import { useParams, useRouter } from "next/navigation"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { Billboard, Category } from "@prisma/client"
 import { Trash } from "lucide-react"
+import { useForm } from "react-hook-form"
+import * as z from "zod"
 
 import { Button } from "@/components/ui/button"
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form"
 import { Heading } from "@/components/ui/heading"
+import { Input } from "@/components/ui/input"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 import { Separator } from "@/components/ui/separator"
 import AlertModal from "@/components/modals/AlertModal"
 
 interface Props {
-  initialData: any | null
+  initialData: Category | null
+  billboards: Billboard[]
 }
 
-const CategoryForm: FC<Props> = ({ initialData }) => {
+const formSchema = z.object({
+  name: z.string().min(2),
+  billboardID: z.string().min(1),
+})
+
+const CategoryForm: FC<Props> = ({ initialData, billboards }) => {
   const params = useParams()
   const router = useRouter()
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: initialData || {
+      name: "",
+      billboardID: "",
+    },
+  })
 
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -26,6 +60,10 @@ const CategoryForm: FC<Props> = ({ initialData }) => {
   const action = initialData ? "Save changes" : "Create"
 
   const onDelete = async () => {}
+
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    console.log("values")
+  }
 
   return (
     <>
@@ -51,6 +89,67 @@ const CategoryForm: FC<Props> = ({ initialData }) => {
           )}
         </div>
         <Separator />
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="space-y-8 w-full"
+          >
+            <div className="md:grid md:grid-cols-3 gap-8">
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Name</FormLabel>
+                    <FormControl>
+                      <Input
+                        disabled={loading}
+                        placeholder="Category name"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="billboardID"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Billboard</FormLabel>
+                    <Select
+                      disabled={loading}
+                      onValueChange={field.onChange}
+                      value={field.value}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue
+                            defaultValue={field.value}
+                            placeholder="Select a billboard"
+                          />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {billboards.map((billboard) => (
+                          <SelectItem key={billboard.id} value={billboard.id}>
+                            {billboard.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+            <Button disabled={loading} className="ml-auto" type="submit">
+              {action}
+            </Button>
+          </form>
+        </Form>
       </div>
     </>
   )
