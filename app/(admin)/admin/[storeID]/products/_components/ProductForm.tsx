@@ -5,9 +5,11 @@ import { useParams, useRouter } from "next/navigation"
 import { zodResolver } from "@hookform/resolvers/zod"
 
 import "@radix-ui/react-select"
-import { SelectContent } from "@radix-ui/react-select"
+import { Category, Color, Size } from "@prisma/client"
+import axios from "axios"
 import { Trash } from "lucide-react"
 import { useForm } from "react-hook-form"
+import toast from "react-hot-toast"
 import * as z from "zod"
 
 import { Button } from "@/components/ui/button"
@@ -26,6 +28,7 @@ import ImageUpload from "@/components/ui/image-upload"
 import { Input } from "@/components/ui/input"
 import {
   Select,
+  SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
@@ -35,9 +38,9 @@ import AlertModal from "@/components/modals/AlertModal"
 
 interface Props {
   initialData: any | null
-  categories: any[]
-  colors: any[]
-  sizes: any[]
+  categories: Category[]
+  colors: Color[]
+  sizes: Size[]
 }
 
 const formSchema = z.object({
@@ -65,7 +68,27 @@ const ProductForm: FC<Props> = ({ initialData, categories, colors, sizes }) => {
 
   const onDelete = async () => {}
 
-  const onSubmit = async () => {}
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    console.log("values", values)
+    try {
+      setLoading(true)
+      if (initialData) {
+        axios.patch(
+          `/api/admin/${params.storeID}/products/${params.colorID}`,
+          values
+        )
+      } else {
+        axios.post(`/api/admin/${params.storeID}/products`, values)
+      }
+      router.refresh()
+      router.push(`/admin/${params.storeID}/products`)
+      toast.success(toastMessage)
+    } catch (error) {
+      toast.error("Something went wrong")
+    } finally {
+      setLoading(false)
+    }
+  }
 
   const defaultValues = initialData
     ? {
@@ -128,7 +151,7 @@ const ProductForm: FC<Props> = ({ initialData, categories, colors, sizes }) => {
                       value={field.value.map((image) => image.url)}
                       disabled={loading}
                       onChange={(url) =>
-                        field.onChange({ ...field.value, url })
+                        field.onChange([...field.value, { url }])
                       }
                       onRemove={(url) =>
                         field.onChange([
@@ -316,6 +339,9 @@ const ProductForm: FC<Props> = ({ initialData, categories, colors, sizes }) => {
                 )}
               />
             </div>
+            <Button disabled={loading} className="ml-auto" type="submit">
+              {action}
+            </Button>
           </form>
         </Form>
       </div>

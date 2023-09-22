@@ -1,7 +1,8 @@
 "use client"
 
-import { useState } from "react"
+import { FC, useState } from "react"
 import { useParams, useRouter } from "next/navigation"
+import { Product } from "@prisma/client"
 import { Plus } from "lucide-react"
 
 import { ApiList } from "@/components/ui/api-list"
@@ -10,13 +11,15 @@ import { Heading } from "@/components/ui/heading"
 import { Separator } from "@/components/ui/separator"
 import AlertModal from "@/components/modals/AlertModal"
 
-const ProductListing = () => {
+interface Props {
+  data: Product[]
+}
+
+const ProductListing: FC<Props> = ({ data }) => {
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
 
   const onDelete = async () => {}
-
-  const data = []
 
   const params = useParams()
   const router = useRouter()
@@ -38,9 +41,7 @@ const ProductListing = () => {
             description="Manage products for your store"
           />
           <Button
-            onClick={() =>
-              router.push(`/admin/${params.storeID}/products/new`)
-            }
+            onClick={() => router.push(`/admin/${params.storeID}/products/new`)}
           >
             <Plus className="mr-2 h-4 w-4" /> Add New
           </Button>
