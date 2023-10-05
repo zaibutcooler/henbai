@@ -7,12 +7,15 @@ import { Plus } from "lucide-react"
 
 import { ApiList } from "@/components/ui/api-list"
 import { Button } from "@/components/ui/button"
+import { DataTable } from "@/components/ui/data-table"
 import { Heading } from "@/components/ui/heading"
 import { Separator } from "@/components/ui/separator"
 import AlertModal from "@/components/modals/AlertModal"
 
+import { BillboardColumn, columns } from "./billboardtable/BillboardColumns"
+
 interface Props {
-  data: Billboard[] | []
+  data: BillboardColumn[]
 }
 
 const BillboardListing: FC<Props> = ({ data }) => {
@@ -48,6 +51,8 @@ const BillboardListing: FC<Props> = ({ data }) => {
             <Plus className="mr-2 h-4 w-4" /> Add New
           </Button>
         </div>
+        <Separator />
+        <DataTable searchKey="label" columns={columns} data={data} />
         <Separator />
         <ApiList entityName="billboards" entityIdName="billboardID" />
       </div>
