@@ -7,12 +7,15 @@ import { Plus } from "lucide-react"
 
 import { ApiList } from "@/components/ui/api-list"
 import { Button } from "@/components/ui/button"
+import { DataTable } from "@/components/ui/data-table"
 import { Heading } from "@/components/ui/heading"
 import { Separator } from "@/components/ui/separator"
 import AlertModal from "@/components/modals/AlertModal"
 
+import { CategoryColumn, columns } from "./table/columns"
+
 interface Props {
-  data: Category[]
+  data: CategoryColumn[]
 }
 
 const CategoryListing: FC<Props> = ({ data }) => {
@@ -48,6 +51,8 @@ const CategoryListing: FC<Props> = ({ data }) => {
             <Plus className="mr-2 h-4 w-4" /> Add New
           </Button>
         </div>
+        <Separator />
+        <DataTable searchKey="name" data={data} columns={columns} />
         <Separator />
         <ApiList entityName="categories" entityIdName="categoryID" />
       </div>

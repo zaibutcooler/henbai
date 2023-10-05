@@ -12,7 +12,7 @@ import { Heading } from "@/components/ui/heading"
 import { Separator } from "@/components/ui/separator"
 import AlertModal from "@/components/modals/AlertModal"
 
-import { BillboardColumn, columns } from "./billboardtable/BillboardColumns"
+import { BillboardColumn, columns } from "./billboardtable/columns"
 
 interface Props {
   data: BillboardColumn[]

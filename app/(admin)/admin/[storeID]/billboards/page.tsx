@@ -5,7 +5,7 @@ import { useStoreModal } from "@/hooks/useStoreModal"
 import StoreModal from "@/components/modals/StoreModal"
 
 import BillboardListing from "./_components/BillboardListing"
-import { BillboardColumn } from "./_components/billboardtable/BillboardColumns"
+import { BillboardColumn } from "./_components/billboardtable/columns"
 
 export default async function BillBoardPage({
   params,

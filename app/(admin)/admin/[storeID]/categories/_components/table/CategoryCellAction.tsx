@@ -1,4 +1,6 @@
-import React, { FC, useState } from "react"
+"use client"
+
+import { useState } from "react"
 import { useParams, useRouter } from "next/navigation"
 import axios from "axios"
 import { Copy, Edit, MoreHorizontal, Trash } from "lucide-react"
@@ -14,13 +16,13 @@ import {
 } from "@/components/ui/dropdown-menu"
 import AlertModal from "@/components/modals/AlertModal"
 
-import { BillboardColumn } from "./columns"
+import { CategoryColumn } from "./columns"
 
-interface Props {
-  data: BillboardColumn
+interface CellActionProps {
+  data: CategoryColumn
 }
 
-const BillboardCellAction: FC<Props> = ({ data }) => {
+const CategoryCellAction: React.FC<CellActionProps> = ({ data }) => {
   const router = useRouter()
   const params = useParams()
   const [open, setOpen] = useState(false)
@@ -29,12 +31,12 @@ const BillboardCellAction: FC<Props> = ({ data }) => {
   const onConfirm = async () => {
     try {
       setLoading(true)
-      await axios.delete(`/api/admin/${params.storeId}/billboards/${data.id}`)
-      toast.success("Billboard deleted.")
+      await axios.delete(`/api/admin/${params.storeID}/categories/${data.id}`)
+      toast.success("Category deleted.")
       router.refresh()
     } catch (error) {
       toast.error(
-        "Make sure you removed all categories using this billboard first."
+        "Make sure you removed all products using this category first."
       )
     } finally {
       setOpen(false)
@@ -44,7 +46,7 @@ const BillboardCellAction: FC<Props> = ({ data }) => {
 
   const onCopy = (id: string) => {
     navigator.clipboard.writeText(id)
-    toast.success("Billboard ID copied to clipboard.")
+    toast.success("Category ID copied to clipboard.")
   }
 
   return (
@@ -69,7 +71,7 @@ const BillboardCellAction: FC<Props> = ({ data }) => {
           </DropdownMenuItem>
           <DropdownMenuItem
             onClick={() =>
-              router.push(`/admin/${params.storeID}/billboards/${data.id}`)
+              router.push(`/admin/${params.storeId}/categories/${data.id}`)
             }
           >
             <Edit className="mr-2 h-4 w-4" /> Update
@@ -83,4 +85,4 @@ const BillboardCellAction: FC<Props> = ({ data }) => {
   )
 }
 
-export default BillboardCellAction
+export default CategoryCellAction

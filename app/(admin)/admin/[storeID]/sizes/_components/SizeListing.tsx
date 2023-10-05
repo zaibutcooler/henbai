@@ -7,12 +7,15 @@ import { Plus } from "lucide-react"
 
 import { ApiList } from "@/components/ui/api-list"
 import { Button } from "@/components/ui/button"
+import { DataTable } from "@/components/ui/data-table"
 import { Heading } from "@/components/ui/heading"
 import { Separator } from "@/components/ui/separator"
 import AlertModal from "@/components/modals/AlertModal"
 
+import { SizeColumn, columns } from "./table/columns"
+
 interface Props {
-  data: Size[]
+  data: SizeColumn[]
 }
 
 const SizeListing: FC<Props> = ({ data }) => {
@@ -46,6 +49,8 @@ const SizeListing: FC<Props> = ({ data }) => {
             <Plus className="mr-2 h-4 w-4" /> Add New
           </Button>
         </div>
+        <Separator />
+        <DataTable searchKey="name" data={data} columns={columns} />
         <Separator />
         <ApiList entityName="sizes" entityIdName="sizeID" />
       </div>

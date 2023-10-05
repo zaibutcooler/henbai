@@ -7,12 +7,15 @@ import { Plus } from "lucide-react"
 
 import { ApiList } from "@/components/ui/api-list"
 import { Button } from "@/components/ui/button"
+import { DataTable } from "@/components/ui/data-table"
 import { Heading } from "@/components/ui/heading"
 import { Separator } from "@/components/ui/separator"
 import AlertModal from "@/components/modals/AlertModal"
 
+import { ProductColumn, columns } from "./table/columns"
+
 interface Props {
-  data: Product[]
+  data: ProductColumn[]
 }
 
 const ProductListing: FC<Props> = ({ data }) => {
@@ -47,7 +50,7 @@ const ProductListing: FC<Props> = ({ data }) => {
           </Button>
         </div>
         <Separator />
-        //Data Table
+        <DataTable searchKey="name" data={data} columns={columns} />
         <Separator />
         <ApiList entityName="products" entityIdName="productID" />
       </div>
