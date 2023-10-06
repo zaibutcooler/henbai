@@ -15,6 +15,11 @@ export default async function ProductPage({
     where: {
       id: params.productID,
     },
+    include: {
+      images: true,
+      color: true,
+      size: true,
+    },
   })
 
   if (!product) {
@@ -27,6 +32,8 @@ export default async function ProductPage({
     },
     include: {
       images: true,
+      color: true,
+      size: true,
     },
   })
 

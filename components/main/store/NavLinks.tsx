@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { useParams, usePathname } from "next/navigation"
 import { Category } from "@prisma/client"
 
 import { cn } from "@/lib/utils"
@@ -12,9 +12,10 @@ interface Props {
 
 const Navlinks: React.FC<Props> = ({ data }) => {
   const pathname = usePathname()
+  const params = useParams()
 
   const routes = data.map((route) => ({
-    href: `/store/category/${route.id}`,
+    href: `/store/${params.storeID}/category/${route.id}`,
     label: route.name,
     active: pathname === `/category/${route.id}`,
   }))
