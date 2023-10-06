@@ -51,3 +51,21 @@ export async function POST(
     return new NextResponse("Internal error", { status: 500 })
   }
 }
+
+export async function GET({ params }: { params: { storeID: string } }) {
+  try {
+    if (!params.storeID) {
+      return new NextResponse("Store id is required", { status: 400 })
+    }
+    const items = await prismadb.category.findMany({
+      where: {
+        storeID: params.storeID,
+      },
+    })
+
+    return NextResponse.json(items)
+  } catch (error) {
+    console.log("[CATEGORY_POST]", error)
+    return new NextResponse("Internal error", { status: 500 })
+  }
+}
