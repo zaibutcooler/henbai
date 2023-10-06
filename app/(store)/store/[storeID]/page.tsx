@@ -19,7 +19,12 @@ export default async function StorePage({
       storeID: params.storeID,
       isFeatured: true,
     },
+    include: {
+      images: true,
+    },
   })
+
+  console.log("pd", products)
 
   return (
     <Container>

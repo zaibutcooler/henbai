@@ -10,6 +10,7 @@ interface Props {
 }
 
 const ProductList: FC<Props> = ({ title, items }) => {
+  console.log("it", items[0])
   return (
     <div className="space-y-4">
       <h3 className="font-bold text-3xl">{title}</h3>

@@ -31,7 +31,7 @@ const ProductCellAction: FC<Props> = ({ data }) => {
   const onConfirm = async () => {
     try {
       setLoading(true)
-      await axios.delete(`/api/${params.storeId}/products/${data.id}`)
+      await axios.delete(`/api/admin/${params.storeID}/products/${data.id}`)
       toast.success("Product deleted.")
       router.refresh()
     } catch (error) {

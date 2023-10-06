@@ -2,7 +2,8 @@
 
 import { MouseEventHandler } from "react"
 import Image from "next/image"
-import { useRouter } from "next/navigation"
+import { useParams, useRouter } from "next/navigation"
+import { CustomProduct } from "@/prisma/types"
 import { Product } from "@prisma/client"
 import { Expand, ShoppingCart } from "lucide-react"
 
@@ -19,9 +20,10 @@ const ProductCard: React.FC<ProductCard> = ({ data }) => {
   const previewModal = usePreviewModal()
   const cart = useCart()
   const router = useRouter()
+  const params = useParams()
 
   const handleClick = () => {
-    router.push(`/product/${data?.id}`)
+    router.push(`/store/${params.storeID}/product/${data?.id}`)
   }
 
   const onPreview: MouseEventHandler<HTMLButtonElement> = (event) => {
@@ -35,8 +37,6 @@ const ProductCard: React.FC<ProductCard> = ({ data }) => {
 
     cart.addItem(data)
   }
-
-  console.log("dt", data)
 
   return (
     <div
