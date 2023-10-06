@@ -6,15 +6,15 @@ import { Category } from "@prisma/client"
 
 import { cn } from "@/lib/utils"
 
-interface MainNavProps {
+interface Props {
   data: Category[]
 }
 
-const MainNav: React.FC<MainNavProps> = ({ data }) => {
+const Navlinks: React.FC<Props> = ({ data }) => {
   const pathname = usePathname()
 
   const routes = data.map((route) => ({
-    href: `/category/${route.id}`,
+    href: `/store/category/${route.id}`,
     label: route.name,
     active: pathname === `/category/${route.id}`,
   }))
@@ -37,4 +37,4 @@ const MainNav: React.FC<MainNavProps> = ({ data }) => {
   )
 }
 
-export default MainNav
+export default Navlinks

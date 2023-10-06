@@ -4,15 +4,15 @@ import axios from "axios"
 import prismadb from "./prismadb"
 import { getUrl } from "./utils"
 
-export const getCategories = async (storeID: string): Promise<Category[]> => {
+export const getCategoriesForNav = async (
+  storeID: string
+): Promise<Category[]> => {
   try {
-    const res = await prismadb.category.findMany({
-      where: {
-        storeID: storeID,
-      },
-    })
+    const res = await fetch(`/api/admin/${storeID}/categories`)
+    const data = await res.json()
+    console.log("res", data)
 
-    return res
+    return data
   } catch (err) {
     console.log("error", err)
     return []
