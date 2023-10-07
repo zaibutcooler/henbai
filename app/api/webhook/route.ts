@@ -9,53 +9,59 @@ export async function POST(req: Request) {
   const body = await req.text()
   const signature = headers().get("Stripe-Signature") as string
   let event: Stripe.Event
+  console.log("starting")
 
   try {
+    console.log("reached")
     event = stripe.webhooks.constructEvent(
       body,
       signature,
       process.env.WEBHOOK_SECRET!
     )
+    console.log("passed")
   } catch (error: any) {
     return new NextResponse(`Webhook Error: ${error.message}`, { status: 400 })
   }
   const session = event.data.object as Stripe.Checkout.Session
+  const address = session.customer_details?.address
+
+  const addressComponents = [
+    address?.line1,
+    address?.line2,
+    address?.state,
+    address?.city,
+    address?.postal_code,
+    address?.country,
+  ]
+
+  const addressString = addressComponents
+    .filter((item) => item !== null)
+    .join(", ")
+
+  console.log("as", addressString)
 
   if (event.type === "checkout.session.completed") {
-    const subscription = await stripe.subscriptions.retrieve(
-      session.subscription as string
-    )
-
-    if (!session?.metadata?.userId) {
-      return new NextResponse("User ID is required", { status: 400 })
-    }
-
-    await prismadb.userSubscription.create({
+    const order = await prisma?.order.update({
+      where: { id: session?.metadata?.orderID },
       data: {
-        userId: session?.metadata?.userId,
-        stripeCustomerID: subscription.customer as string,
-        stripeSubscriptionID: subscription.id,
-        stripePriceID: subscription.items.data[0].id,
-        stripeCurrentPeriodEnd: new Date(
-          subscription.current_period_end * 1000
-        ),
+        isPaid: true,
+        address: addressString,
+        phone: session.customer_details?.phone || "",
+      },
+      include: {
+        orderItems: true,
       },
     })
-  }
-  if (event.type === "invoice.payment_succeeded") {
-    const subscription = await stripe.subscriptions.retrieve(
-      session.subscription as string
-    )
 
-    await prismadb.userSubscription.update({
+    const productIDs = order?.orderItems.map((item) => item.productID)
+    await prismadb.product.updateMany({
       where: {
-        stripeSubscriptionID: subscription.id,
+        id: {
+          in: productIDs,
+        },
       },
       data: {
-        stripePriceID: subscription.items.data[0].price.id,
-        stripeCurrentPeriodEnd: new Date(
-          subscription.current_period_end * 1000
-        ),
+        isArchived: true,
       },
     })
   }

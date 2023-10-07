@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect } from "react"
-import { useSearchParams } from "next/navigation"
+import { useParams, useSearchParams } from "next/navigation"
 import axios from "axios"
 import { toast } from "react-hot-toast"
 
@@ -11,6 +11,7 @@ import Currency from "@/components/ui/currency"
 
 const CartSummary = () => {
   const searchParams = useSearchParams()
+  const params = useParams()
   const items = useCart((state) => state.items)
   const removeAll = useCart((state) => state.removeAll)
 
@@ -30,7 +31,7 @@ const CartSummary = () => {
   }, 0)
 
   const onCheckout = async () => {
-    const response = await axios.post(`/api/checkout`, {
+    const response = await axios.post(`/api/admin/${params.storeID}/checkout`, {
       productIDs: items.map((item) => item.id),
     })
 

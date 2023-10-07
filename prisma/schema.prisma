@@ -17,6 +17,7 @@ model Store {
   products        Product[]  @relation("StoreToProduct")
   sizes           Size[]     @relation("StoreToSize")
   colors          Color[]     @relation("StoreToColor")
+  orders          Order[]     @relation("StoreToOrder")
   created       DateTime   @default(now())
   updated       DateTime   @updatedAt
 }
@@ -64,6 +65,7 @@ model Product {
   colorID     String    
   color       Color     @relation(fields: [colorID], references: [id])
   images      Image[]   
+  orderItems  OrderItem[]
   created     DateTime  @default(now())
   updated     DateTime  @updatedAt
 
@@ -110,6 +112,32 @@ model Image {
 
   @@index([productID])
 }
+
+model Order{
+  id        String @id @default(uuid())
+  storeID   String
+  store     Store   @relation("StoreToOrder",fields: [storeID],references: [id])
+  orderItems OrderItem[]
+  isPaid    Boolean @default(false)
+  phone     String  @default("")
+  address   String  @default("")
+  created   DateTime  @default(now())
+  updated   DateTime  @updatedAt
+
+  @@index([storeID])
+}
+
+model OrderItem{
+  id        String @id @default(uuid())
+  orderID   String 
+  order     Order @relation(fields: [orderID],references: [id])
+  productID String
+  product   Product @relation(fields: [productID],references: [id])
+
+  @@index([orderID])
+  @@index([productID])
+}
+
 
 model UserSubscription{
   id                      String    @id @default(cuid())
