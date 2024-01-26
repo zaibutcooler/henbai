@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation"
 import { UserButton, auth } from "@clerk/nextjs"
+import { Store } from "@prisma/client"
 
 import prismadb from "@/lib/prismadb"
 import { ThemeToggle } from "@/components/theme-toggle"
@@ -7,19 +8,7 @@ import { ThemeToggle } from "@/components/theme-toggle"
 import StoreSwitcher from "./StoreSwitcher"
 import SubAdminNavbar from "./SubAdminNavbar"
 
-const Navbar = async () => {
-  const { userId } = auth()
-
-  if (!userId) {
-    redirect("/sign-in")
-  }
-
-  const stores = await prismadb.store.findMany({
-    where: {
-      userId,
-    },
-  })
-
+export default function Navbar({ stores }: { stores: Store[] }) {
   return (
     <div className="border-b">
       <div className="flex h-16 items-center px-4">
@@ -35,5 +24,3 @@ const Navbar = async () => {
     </div>
   )
 }
-
-export default Navbar

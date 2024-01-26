@@ -19,10 +19,10 @@ interface CategoryPageProps {
   }
 }
 
-const CategoryPage: React.FC<CategoryPageProps> = async ({
+export default async function CategoryPage({
   params,
   searchParams,
-}) => {
+}: CategoryPageProps) {
   const products = await prismadb.product.findMany({
     where: {
       categoryID: params.categoryID,
@@ -82,5 +82,3 @@ const CategoryPage: React.FC<CategoryPageProps> = async ({
     </div>
   )
 }
-
-export default CategoryPage

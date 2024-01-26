@@ -22,6 +22,8 @@ export async function POST(req: Request) {
   } catch (error: any) {
     return new NextResponse(`Webhook Error: ${error.message}`, { status: 400 })
   }
+
+  //@ts-ignore
   const session = event.data.object as Stripe.Checkout.Session
   const address = session.customer_details?.address
 

@@ -1,4 +1,4 @@
-import { Billboard } from "@/types";
+import { Billboard } from "@prisma/client";
 
 interface BillboardProps {
   data: Billboard;

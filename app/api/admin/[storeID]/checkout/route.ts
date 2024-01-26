@@ -22,6 +22,7 @@ export async function POST(
       },
     })
 
+    //@ts-ignore
     const line_items: Stripe.Checkout.SessionCreateParams.LineItem[] = []
 
     products.forEach((product) => {

@@ -16,7 +16,7 @@ interface ProductCard {
   data: Product
 }
 
-const ProductCard: React.FC<ProductCard> = ({ data }) => {
+const ProductCard: React.FC<ProductCard> = ({ data }: { data: any }) => {
   const previewModal = usePreviewModal()
   const cart = useCart()
   const router = useRouter()
@@ -46,7 +46,7 @@ const ProductCard: React.FC<ProductCard> = ({ data }) => {
       {/* Image & actions */}
       <div className="aspect-square rounded-xl bg-gray-100 relative">
         <Image
-          src={data.images?.[0]?.url}
+          src={data?.images?.[0]?.url}
           alt=""
           fill
           className="aspect-square object-cover rounded-md"
