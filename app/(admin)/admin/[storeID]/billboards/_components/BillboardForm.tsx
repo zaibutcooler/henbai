@@ -2,7 +2,6 @@
 
 import { FC, useState } from "react"
 import { useParams, useRouter } from "next/navigation"
-import router from "@/prototype/backend/src/auth"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Billboard } from "@prisma/client"
 import axios from "axios"
